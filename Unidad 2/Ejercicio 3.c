@@ -36,7 +36,7 @@ void uper(struct student stu[3]) {
     int i;
     for ( i = 0; i < 3; i++)
     {
-        if (stu[i].id > 40)
+        if (stu[i].id > 40000000)
         {
             printf("El alumno %s %s posee un DNI mayor a 40 mill.\n", stu[i].name, stu[i].surname);
         }
