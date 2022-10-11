@@ -1,60 +1,84 @@
 #include <stdio.h>
-#define N 3
+#define N 2
+#define M 2
 
-struct sucursal
+void cero(int array[N][M])
 {
-    int ven, emp;
-};
-
-void carga(struct sucursal suc[N])
-{
-    int i;
-    for ( i = 0; i < N; i++)
-    {
-        printf("Ingrese el número de empleados: ");
-        scanf("%d", &suc[i].emp);
-        printf("Ingrese la ventas totales del mes: ");
-        scanf("%d", &suc[i].ven);
-    }
-}
-
-void show(struct sucursal suc[3]) {
-    int i;
+    int i, j;
     for (i = 0; i < N; i++)
     {
-        printf("Epleados empresa n°%d: %d\n", i, suc[i].emp);
-        printf("Ventas totales: %d \n\n", suc[i].ven);
+        for (j = 0; j < M; j++)
+        {
+            array[i][j] = 0;
+        }
     }
 }
 
-int empleados(struct sucursal suc[3], int a[N]){
-    int i;
-    for ( i = 0; i < N; i++)
+void carga(int array[N][M])
+{
+    int i, j;
+    for (i = 0; i < N; i++)
     {
-        if (suc[i].emp>12)
+        for (j = 0; j < M; j++)
         {
-            a[i] = i;
+            printf("Ingrese el sueldo: ");
+            scanf("%d", &array[i][j]);
         }
-        else if (suc[i].emp<6)
-        {
-            return printf("La empresar %d tiene menos de 6 empleados", i);
-        }
-        
-        
     }
-    
+}
+
+void show(int array[N][M])
+{
+    int i, j;
+    for (i = 0; i < N; i++)
+    {
+        for (j = 0; j < M; j++)
+        {
+            printf("El sueldo del empleado %d en el mes %d es : %d\n", j, i, array[i][j]);
+        }
+    }
+}
+
+int showRec(int array[N][M], int i, int j)
+{
+    if (i < N)
+    {
+        if (i == 2)
+        {
+            if (j < M)
+            {
+                printf("El sueldo es: %d", array[i][j]);
+                return showRec(array, i, j++);
+            }
+            else
+            {
+                return showRec(array, i++, j);
+            }
+        }
+        return showRec(array, i++, j);
+    }
+}
+
+void prom(int array[N][M])
+{
+    int i, j, tot;
+    for (i = 0; i < N; i++)
+    {
+        for (j = 0; j < M; j++)
+        {
+            tot += array[i][j];
+        }
+    }
+    printf("El promedio de suledo es: %d", tot / (N+M));
 }
 
 int main()
 {
-    int a[N], i;
-    struct sucursal suc[N];
-    carga(suc);
-    show(suc);
-    for (i = 0; i < N; i++)
-    {
-        printf("La empresa %d tiene mas de 12 empledos", a[i]);
-    }
-    
+    int array[N][M], i = 0, j = 0;
+    cero(array);
+    carga(array);
+    show(array);
+    showRec(array, i, j);
+    prom(array);
     return 0;
 }
